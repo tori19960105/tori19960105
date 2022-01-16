@@ -1,0 +1,231 @@
+@charset "UTF-8";
+
+a{
+  color: #000;
+  text-decoration: none;
+}
+.container{
+  max-width: 1920px;
+  padding: 0 40p;
+  margin: 0 auto;
+}
+
+/*ヘッダー*/
+header{
+  width: 100%;
+  height: 40px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+header > .container{
+  display: flex;
+  height: 40px;
+  align-items: center;
+  max-width: none;
+}
+.area_logo_header{
+  width: 50%;
+}
+.area_logo_header .logo{
+  width: 80px;
+  height: 40px;
+  display: block;
+}
+.area_logo_header img{
+  height: 40px;
+  vertical-align: bottom;
+}
+/*ヘッダーナビ*/
+.list_header {
+  display: flex;
+  aligen-items: center;
+  margin: 0 0 auto;
+  list-style: none;
+}
+.list_header a{
+  font:10px/1em 'Meiryo';
+}
+.list_header li{
+  padding: 0 15px;
+}
+/*トップビュー*/
+.area_top_view{
+  background: url(../image/background/background_01.jpg) no-repeat center center;
+  background-size: cover;
+  height: 475px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.area_top_view .text_view{
+  margin-top: -20px;
+  text-align: center;
+}
+/*本文共通*/
+section{
+  align-items: center;
+  text-align: center;
+  padding: 0 200px;
+}
+.head_home .ttl{
+  color: #001F5F;
+  text-align: center;
+}
+.body_home .description{
+  color: #001F5F;
+  text-align: center;
+  margin-top: -30px;
+}
+.body_home .text_home{
+  color: #000;
+  text-align: center;
+  font:10px/1em 'Meiryo';
+}
+ul{
+  list-style: none;
+}
+/*about*/
+.area_home_about{
+  margin: 50px 0;
+  padding:  0;
+}
+.layout_2_div{
+  margin: 75px 300px 0 300px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(43,68,150,0.25);
+  background-size: cover;
+}
+.layout_2_div > div{
+  width: 50%;
+  text-align: left;
+  height: 140px;
+}
+.layout_2_div .ttl01{
+  font:20px/1em 'Meiryo';
+  color:;
+}
+.layout_2_div .ttl02{
+  font:20px/1em 'Meiryo';
+  color: #62ACD8;
+}
+.layout_2_div .description{
+  font:10px/1em 'Meiryo';
+}
+.recruit_flow img{
+  height: 70px;
+}
+.training_content img{
+  height: 70px;
+  padding-left: 100px;
+}
+/*社員紹介*/
+.area_home_staff{
+  padding-top: 25px;
+  background-color:rgba(8,213,244,0.1);
+}
+.area_home_staff ul{
+  align-items: center;
+  padding: 0 35px;
+}
+.staff_list{
+  display: flex;
+}
+.staff_list img{
+  height: 200px;
+  align-items: center;
+  margin: 10px 5px;
+}
+.data_analysis_img img{
+  width: 750px;
+  align-items: center;
+}
+/*News*/
+
+.nav_home p{
+  padding: 0 40px;
+  text-align: left;
+  font: font:10px/1em 'Meiryo';
+}
+/*特徴*/
+.area_home_feature{
+  background: url(../image/background/background_02.jpg) no-repeat center center;
+}
+.area_home_feature .body_home img{
+  height: 300px;
+  margin: 0 10px;
+}
+.area_home_feature .body_home{
+  padding-top: 30px;
+}
+.list_feature{
+  padding: 0 35px;
+  display: flex;
+}
+.area_home_feature .body_home li{
+  height: 300px;
+}
+/*お問い合わせ*/
+.area_home_contact{
+  background-color: rgba(43,68,150,0.25);
+}
+.area_home_contact .container{
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+}
+/*フッター*/
+footer .container{
+  text-align: left;
+  height: 200px;
+  background-color: rgba(4,4,4,0.6);
+  bottom: -200px;
+  width: 100%;
+  position: absolute;
+}
+.list_container{
+  padding: 0 250px;
+  display: flex;
+}
+.list_container li{
+  width: 25%;
+  font: 10px/1em 'Meiryo';
+  color: #FFF;
+  margin: 0 0 0 100px;
+}
+.list_container a{
+  color: #FFF;
+}
+.copyright .list_copyright{
+  padding: 0 250px;
+  display: flex;
+  height: 0;
+}
+.list_copyright li{
+  width: 50%;
+  margin: 0 0 0 100px;
+}
+.list_copyright .text{
+  font: 10px/1em 'Meiryo';
+  color: #FFF;
+  padding-top: 40px;
+  text-align: left;
+}
+.list_copyright img{
+  height:60px;
+  padding: 0 0;
+}
+html,body{
+  left: 0;
+  right:0;
+  margin: 0;
+  position: absolute;
+}
+main{
+  min-height: 100%;
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="125" viewBox="0 0 96 125">
+  <g id="グループ_3" data-name="グループ 3" transform="translate(-1734 -4424)">
+    <g id="楕円形_2" data-name="楕円形 2" transform="translate(1734 4424)" fill="#0b0a0a" stroke="#707070" stroke-width="1">
+      <circle cx="48" cy="48" r="48" stroke="none"/>
+      <circle cx="48" cy="48" r="47.5" fill="none"/>
+    </g>
+    <text id="_" data-name="^" transform="translate(1749 4512)" fill="#fff" font-size="83" font-family="Meiryo"><tspan x="0" y="0">^</tspan></text>
+  </g>
+</svg>
