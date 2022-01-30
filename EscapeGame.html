@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
     </script>
     <meta charset="utf-8">
     <title>部屋から脱出せよ</title>
     <style>
       body{
-        background-color: #fffffff;
+        background-color: #ffffff;
       }
       label,button{
-        color: #0000000;
-        font-family:
+        color: #00000	0;
+        font-family: Meiryo, Helvetica, sans-serif;
         font-size: 20px;
         margin-left: 40px;
       }
       input{
         color: #232F3E;
-        font-family:
+        font-family: Meiryo, Helvetica, sans-serif;
         font-size: 20px;
         margin-left: 40px;
       }
@@ -25,66 +25,67 @@
   </head>
   <body>
     <p>部屋から脱出せよ</p>
-    <div id="situation1">
-      <p>{{situation}}</p>
-      <p>選択肢：{{choice1}}</p>
-      <button type="button" onclick="selectChoice('1')">選択肢1を選ぶ</button>
-      <p>選択肢：{{choice2}}</p>
-      <button type="button" onclick="selectChoice('2')">選択肢2を選ぶ</button>
+    <div id="Situation1">
+      <p><button type="button" onclick="selectChoice('0')">開始</button></p>
+      <p>{{Situation}}</p>
+      <button type="button" onclick="selectChoice('1')">{{Choice1}}</button>
+      <button type="button" onclick="selectChoice('2')">{{Choice2}}</button>
       <p><button type="button" onclick="selectChoice('0')">リスタート</button></p>
     </div>
     <script>
       //vueインスタンス生成
-      var vm = new Vue({
-        el:'#Situation1',
-        data:{
-          ID:'0';
-          Situation:'',
-          Choice1:'',
-          Choice2:'',
-          Result:'',
-          CorrectChoice:''
-        }
-      })
+        var vm = new Vue({
+            el:'#Situation1',
+            data:{
+                ID:'0',
+                Situation:'',
+                Choice1:'開始を押してください',
+                Choice2:'開始を押してください',
+                Result:'',
+                CorrectChoice:''
+            }
+        })
     //選択肢１、選択肢２、リスタートの条件分岐
-    var selectChoice = (playerChoice)=>{
-      if (playerChoice == '0'){
-        vm.ID = 1;
-        callAPI();
-      }else if ((vm.CorrectChoice != 0) && (playerChoice == vm.CorrectChoice)) {
-        vm.ID = vm.ID + 1;
-        callAPI();
-      }else if ((vm.CorrectChoice != 0) && (playerChoice != vm.CorrectChoice)) {
-        vm.ID = 0;
-        vm.Situation = vm.Result;
-        vm.Choice1 = '';
-        vm.Choice2 = '';
-        vm.Result = '';
-        vm.CorrectChoice = '0';
-      }
-    }
-    var callAPI = ()=>{
-      var id = vm.ID;
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type","application/json")
-      var raw = JSON.stringify({"ID";id});
-      var requestOption = {
-        method: 'POST';
-        header: myheaders;
-        body: raw;
-        redirect: 'follow';
-      };
-      fetch("https://24a2ldfcal.execute-api.us-east-1.amazonaws.com/dev",requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        vm.ID = json.parse(result).body['ID'];
-        vm.Situation = json.parse(result).body['Situation'];
-        vm.Choice1 = json.parse(result).body['Choice1'];
-        vm.Choice2 = json.parse(result).body['Choice2'];
-        vm.CorrectChoice = json.parse(result).body['CorrectChoice'];
-        return 0;
-      }
-    }
+        var selectChoice = (playerChoice)=>{
+            if (playerChoice == '0') {
+              vm.ID = 1;
+              callAPI();
+            } else if ((vm.CorrectChoice != '0') && (playerChoice == vm.CorrectChoice)) {
+                vm.ID = vm.ID + 1;
+                callAPI();
+            } else if ((vm.CorrectChoice != '0') && (playerChoice != vm.CorrectChoice)) {
+                vm.ID = 0;
+                vm.Situation = vm.Result;
+                vm.Choice1 = '';
+                vm.Choice2 = '';
+                vm.Result = '';
+                vm.CorrectChoice = '0';
+            }
+        }
+        var callAPI = ()=>{
+            var id = vm.ID;
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({"ID":id});
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+            fetch("https://24a2ldfcal.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+              vm.ID = JSON.parse(result).body['ID'];
+              vm.Situation = JSON.parse(result).body['Situation'];
+              vm.Choice1 = JSON.parse(result).body['Choice1'];
+              vm.Choice2 = JSON.parse(result).body['Choice2'];
+              vm.Result = JSON.parse(result).body['Result'];
+              vm.CorrectChoice = JSON.parse(result).body['Correctchoice'];
+              return 0;
+            })
+            .catch(error => console.log('error', error));
+        }
     </script>
   </body>
 </html>
