@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
+    </script>
+    <meta charset="UTF-8">
+    <title>部屋から脱出せよ！</title>
+    <!-- Add some CSS to change client UI -->
+    <style>
+    body {
+        background-color: #ffffff;
+        }
+    label, button {
+        color: #000000;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 40px;
+        }
+     input {
+        color: #232F3E;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p>部屋から脱出せよ！</p>
+    <div id="Situation1">
+        <p>{{Situation}}</p>
+        <p>選択肢１:{{Choice1}}</p>
+        <button type="button" onclick="selectChoice('1')">選択肢１を選ぶ</button>
+        <p>選択肢２:{{Choice2}}</p>
+        <button type="button" onclick="selectChoice('2')">選択肢２を選ぶ</button>
+        <p><button type="button" onclick="selectChoice('0')">リスタート</button></p>
+    </div>
+    <script>
+        //DynamoDBから受け取った情報を表示するためのVueインスタンスを生成します
+        var vm = new Vue({
+            el:'#Situation1',
+            data:{
+                ID:'0',
+                Situation:'',
+                Choice1:'',
+                Choice2:'',
+                Result:'',
+                CorrectChoice:''
+            }
+        })
+        // 選択肢1、選択肢2、リスタートをクリックした時の条件分岐
+        var selectChoice = (playerChoice)=>{
+            //リスタートを選択したらゲームスタート時の項目をDynamoDBから取得
+            if (playerChoice == '0') {
+                vm.ID = 1;
+                callAPI();
+            //正解の選択肢なら次の段階の項目をDynamoDBから取得
+            } else if ((vm.CorrectChoice != '0') && (playerChoice == vm.CorrectChoice)) {
+                vm.ID = vm.ID + 1;
+                callAPI();
+            //不正解なら結果を表示
+            } else if ((vm.CorrectChoice != '0') && (playerChoice != vm.CorrectChoice)) {
+                vm.ID = 0;
+                vm.Situation = vm.Result;
+                vm.Choice1 = '';
+                vm.Choice2 = '';
+                vm.Result = '';
+                vm.CorrectChoice = '0';
+            }
+        }
+        //APIの呼び出しを定義する
+        var callAPI = ()=>{
+            //idは現在の次の段階を代入
+            var id = vm.ID;
+            // ヘッダーオブジェクトの生成
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            //Lambda側に渡す値の設定
+            var raw = JSON.stringify({"ID":id});
+            // JSONオブジェクトの生成
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // API経由でのLambdaからのレスポンスをVueインスタンスに代入する
+            fetch("https://24a2ldfcal.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                vm.ID = JSON.parse(result).body['ID'];
+                vm.Situation = JSON.parse(result).body['Situation'];
+                vm.Choice1 = JSON.parse(result).body['Choice1'];
+                vm.Choice2 = JSON.parse(result).body['Choice2'];
+                vm.Result = JSON.parse(result).body['Result'];
+                vm.CorrectChoice = JSON.parse(result).body['CorrectChoice'];
+                return 0;
+            })
+            .catch(error => console.log('error', error));
+        }
+        </script>
+</body>
+</html>
